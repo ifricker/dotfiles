@@ -1,8 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/ianfricker/.oh-my-zsh
+
+# export SHELL=/bin/zsh
+# if [ -t 1 ]; then exec $SHELL; fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -17,7 +20,7 @@ ZSH_THEME="agnoster"
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-CASE_SENSITIVE="true"
+# CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -94,9 +97,9 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias be='bundle exec'
 alias restart_server='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias drop_both='be rake db:drop && be rake db:create && be rake db:migrate && be rake db:seed && be rake db:migrate RAILS_ENV=test && be rake db:seed RAILS_ENV=test'
-alias drop_test='be rake db:drop RAILS_ENV=test && be rake db:create RAILS_ENV=test && be rake db:migrate RAILS_ENV=test && be rake db:seed RAILS_ENV=test'
-alias drop_dev='be rake db:drop && be rake db:create && be rake db:migrate && be rake db:seed'
+alias drop_both='be rails db:drop && be rails db:create && be rails db:migrate && be rails db:seed && be rails db:migrate RAILS_ENV=test && be rails db:seed RAILS_ENV=test'
+alias drop_test='be rails db:drop RAILS_ENV=test && be rails db:create RAILS_ENV=test && be rails db:migrate RAILS_ENV=test && be rails db:seed RAILS_ENV=test'
+alias drop_dev='be rails db:drop && be rails db:create && be rails db:migrate && be rails db:seed'
 alias uuid="RUBYOPT='-W0' rails runner 'p SecureRandom.uuid'"
 alias ember_server="ember server --proxy http://localhost:3000"
 alias ll='ls -alh'
@@ -105,7 +108,8 @@ alias gl='git log --oneline -10'
 alias work='cd ~/Code/Work/currica/'
 alias open_db='psql -d currica_development'
 alias web='work && cd web/'
+alias redis_start='redis-server /usr/local/etc/redis.conf'
 # Set token for for gem update script
-export GITHUB_TOKEN=ed1f86c335eef9f9b2348cc0ba8183d5d6254137
+export GITHUB_TOKEN=NOT_CURRECT_TOKEN
 
 DEFAULT_USER='ianfricker'
