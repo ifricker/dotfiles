@@ -109,6 +109,17 @@ alias work='cd ~/Code/Work/currica/'
 alias open_db='psql -d currica_development'
 alias web='work && cd web/'
 alias redis_start='redis-server /usr/local/etc/redis.conf'
+alias ngrok='./ngrok http 3000'
+
+# run spec 50 times, break if fail
+function rspec_50() {
+    if [ -n "$1" ]
+    then
+      for i in `seq 50` ; do rspec "$1"; [[ ! $? = 0 ]] && break ; done
+    else
+      echo Please input spec
+    fi
+}
 # Set token for for gem update script
 export GITHUB_TOKEN=NOT_CURRECT_TOKEN
 
