@@ -76,8 +76,10 @@ set ignorecase
 set autoindent
 set smartindent
 set hidden
-set clipboard=unnamed
 set showmatch
+
+vmap <space>y "+y
+map <space>p "+p
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
