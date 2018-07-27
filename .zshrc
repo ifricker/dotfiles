@@ -120,7 +120,9 @@ function rspec_50() {
       echo Please input spec
     fi
 }
+
 # Set token for for gem update script
-export GITHUB_TOKEN=NOT_CURRECT_TOKEN
+export GITHUB_TOKEN=NOT_CURRENT_TOKEN
+export CIRCLE_TOKEN=NOT_CURRENT_TOKEN
 
 DEFAULT_USER='ianfricker'
