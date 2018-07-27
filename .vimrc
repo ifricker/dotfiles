@@ -12,6 +12,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ajh17/VimCompletesMe'
+Plug 'thoughtbot/vim-rspec'
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 
@@ -33,6 +35,9 @@ let g:NERDTreeShowHidden=1
 
 " vimrubocop settings
 let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+
+" let colorscheme set color for indentLine
+let g:indentLine_setColors = 0
 
 " Enable filetype detection and filetype specific settings.
 filetype on
@@ -80,6 +85,12 @@ set showmatch
 
 vmap <space>y "+y
 map <space>p "+p
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
