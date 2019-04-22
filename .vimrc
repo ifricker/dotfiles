@@ -6,16 +6,21 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sheerun/vim-polyglot'
 Plug 'ngmy/vim-rubocop'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ajh17/VimCompletesMe'
-Plug 'thoughtbot/vim-rspec'
 Plug 'Yggdroot/indentLine'
+Plug 'godlygeek/tabular'
+Plug 'scrooloose/nerdcommenter'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
 
 call plug#end()
+
+" prettier settings
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js PrettierAsync
 
 " Show hidden files in Ctrl-P
 let g:ctrlp_show_hidden = 1
@@ -26,6 +31,10 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 " vim-airline-theme settings
 let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
+
+" nerdcommenter settings
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 
 " nerdtree settings
 autocmd StdinReadPre * let s:std_in=1
@@ -38,6 +47,14 @@ let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.ym
 
 " let colorscheme set color for indentLine
 let g:indentLine_setColors = 0
+
+" Spell check
+set spell spelllang=en_us
+hi clear SpellBad
+hi SpellBad cterm=underline
+
+" built-in matchit macro, % for matching do/end & def/end
+runtime macros/matchit.vim
 
 " Enable filetype detection and filetype specific settings.
 filetype on
@@ -86,11 +103,15 @@ set showmatch
 vmap <space>y "+y
 map <space>p "+p
 
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+let mapleader=','
+
+" Tabularize mappings
+nmap <Leader>a= :Tab /=/l1l1<CR>
+vmap <Leader>a= :Tab /=/l1l1<CR>
+nmap <Leader>a: :Tab /:\zs/l0l1<CR>
+vmap <Leader>a: :Tab /:\zs/l0l1<CR>
+nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
+vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
