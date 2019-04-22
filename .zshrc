@@ -96,20 +96,18 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias be='bundle exec'
-alias restart_server='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias drop_both='be rails db:drop && be rails db:create && be rails db:migrate && be rails db:seed && be rails db:migrate RAILS_ENV=test && be rails db:seed RAILS_ENV=test'
-alias drop_test='be rails db:drop RAILS_ENV=test && be rails db:create RAILS_ENV=test && be rails db:migrate RAILS_ENV=test && be rails db:seed RAILS_ENV=test'
-alias drop_dev='be rails db:drop && be rails db:create && be rails db:migrate && be rails db:seed'
-alias uuid="RUBYOPT='-W0' rails runner 'p SecureRandom.uuid'"
-alias ember_server="ember server --proxy http://localhost:3000"
-alias ll='ls -alh'
+alias restart_server='pg_ctl -D /usr/local/var/postgresql@9.6 -l /usr/local/var/postgresql@9.6/server.log start'
 alias gs='git status'
 alias gl='git log --oneline -10'
-alias work='cd ~/Code/Work/currica/'
 alias open_db='psql -d currica_development'
-alias web='work && cd web/'
+alias open_db_test='psql -d currica_test'
+alias web='cd ~/Code/Work/currica/web/'
 alias redis_start='redis-server /usr/local/etc/redis.conf'
 alias ngrok='./ngrok http 3000'
+alias kill_server='kill -9 $(lsof -i tcp:3000 -t)'
+alias start_all='foreman start -f Procfile.dev'
+alias uninstall_all_gems='gem uninstall -aIx'
+alias clean_up_branches='git branch -d $(git branch --merged=master | grep -v master) && git fetch --prune'
 
 # run spec 50 times, break if fail
 function rspec_50() {
