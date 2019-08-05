@@ -7,6 +7,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sheerun/vim-polyglot'
 Plug 'ngmy/vim-rubocop'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -14,6 +15,7 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'Yggdroot/indentLine'
 Plug 'godlygeek/tabular'
 Plug 'scrooloose/nerdcommenter'
+Plug 'thoughtbot/vim-rspec'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
 
 call plug#end()
@@ -44,6 +46,9 @@ let g:NERDTreeShowHidden=1
 
 " vimrubocop settings
 let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+
+" vimrspec settings
+let g:rspec_runner = "os_x_iterm"
 
 " let colorscheme set color for indentLine
 let g:indentLine_setColors = 0
@@ -82,6 +87,7 @@ set laststatus=2
 syntax enable
 set background=dark
 set t_Co=256
+
 " solarized options
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
@@ -112,6 +118,12 @@ nmap <Leader>a: :Tab /:\zs/l0l1<CR>
 vmap <Leader>a: :Tab /:\zs/l0l1<CR>
 nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.

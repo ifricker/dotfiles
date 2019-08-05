@@ -108,6 +108,8 @@ alias kill_server='kill -9 $(lsof -i tcp:3000 -t)'
 alias start_all='foreman start -f Procfile.dev'
 alias uninstall_all_gems='gem uninstall -aIx'
 alias clean_up_branches='git branch -d $(git branch --merged=master | grep -v master) && git fetch --prune'
+alias webpacker_dev_server='./bin/webpack-dev-server'
+alias rspec_changed='rspec $(git ls-files --modified --others --exclude="*.swp" --exclude="*.DS_Store" spec)'
 
 # run spec 50 times, break if fail
 function rspec_50() {
@@ -124,3 +126,5 @@ export GITHUB_TOKEN=NOT_CURRENT_TOKEN
 export CIRCLE_TOKEN=NOT_CURRENT_TOKEN
 
 DEFAULT_USER='ianfricker'
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
