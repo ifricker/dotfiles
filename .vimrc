@@ -1,23 +1,22 @@
 " List all plugins :PlugInstall
 call plug#begin('~/.vim/plugged')
-
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'sheerun/vim-polyglot'
-Plug 'ngmy/vim-rubocop'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ajh17/VimCompletesMe'
-Plug 'Yggdroot/indentLine'
-Plug 'godlygeek/tabular'
-Plug 'scrooloose/nerdcommenter'
-Plug 'thoughtbot/vim-rspec'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
-
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'scrooloose/nerdtree'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'ngmy/vim-rubocop'
+  Plug 'tpope/vim-endwise'
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'ajh17/VimCompletesMe'
+  Plug 'Yggdroot/indentLine'
+  Plug 'godlygeek/tabular'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'thoughtbot/vim-rspec'
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
 call plug#end()
 
 " prettier settings
@@ -29,6 +28,10 @@ let g:ctrlp_show_hidden = 1
 
 " Ignore files in .gitignore
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" vim-airline settings
+let g:airline_detect_spell=0
+let g:airline_inactive_collapse=1
 
 " vim-airline-theme settings
 let g:airline_powerline_fonts = 1
