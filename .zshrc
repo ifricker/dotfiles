@@ -62,7 +62,7 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  git alias-tips zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,6 +110,7 @@ alias uninstall_all_gems='gem uninstall -aIx'
 alias clean_up_branches='git branch -d $(git branch --merged=master | grep -v master) && git fetch --prune'
 alias webpacker_dev_server='./bin/webpack-dev-server'
 alias rspec_changed='rspec $(git ls-files --modified --others --exclude="*.swp" --exclude="*.DS_Store" spec)'
+alias ssh_pi='sshpass -p raspberry ssh pi@192.168.1.82'
 
 # run spec 50 times, break if fail
 function rspec_50() {
