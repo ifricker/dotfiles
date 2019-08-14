@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ngmy/vim-rubocop'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-rails'
   Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -15,9 +16,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'Yggdroot/indentLine'
   Plug 'godlygeek/tabular'
   Plug 'scrooloose/nerdcommenter'
-  Plug 'thoughtbot/vim-rspec'
+  Plug 'janko/vim-test'
+  Plug 'tpope/vim-dispatch'
   Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
 call plug#end()
+
+" vim-test settings
+let test#strategy = "dispatch"
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
 
 " prettier settings
 let g:prettier#autoformat = 0
@@ -51,7 +58,7 @@ let g:NERDTreeShowHidden=1
 let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
 
 " vimrspec settings
-let g:rspec_runner = "os_x_iterm"
+let g:rspec_runner = "os_x_iterm2"
 
 " let colorscheme set color for indentLine
 let g:indentLine_setColors = 0
