@@ -57,9 +57,6 @@ let g:NERDTreeShowHidden=1
 " vimrubocop settings
 let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
 
-" vimrspec settings
-let g:rspec_runner = "os_x_iterm2"
-
 " let colorscheme set color for indentLine
 let g:indentLine_setColors = 0
 
@@ -128,12 +125,6 @@ nmap <Leader>a: :Tab /:\zs/l0l1<CR>
 vmap <Leader>a: :Tab /:\zs/l0l1<CR>
 nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
-
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
