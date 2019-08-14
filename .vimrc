@@ -1,48 +1,58 @@
 " List all plugins :PlugInstall
 call plug#begin('~/.vim/plugged')
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'scrooloose/nerdtree'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'ajh17/VimCompletesMe'
   Plug 'altercation/vim-colors-solarized'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'sheerun/vim-polyglot'
+  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'godlygeek/tabular'
+  Plug 'janko/vim-test'
   Plug 'ngmy/vim-rubocop'
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'scrooloose/nerdtree'
+  Plug 'sheerun/vim-polyglot'
+  Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
-  Plug 'airblade/vim-gitgutter'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'ajh17/VimCompletesMe'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'Yggdroot/indentLine'
-  Plug 'godlygeek/tabular'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'janko/vim-test'
-  Plug 'tpope/vim-dispatch'
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
 call plug#end()
+
+let mapleader=','
+
+" solarized options
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
+let g:solarized_termtrans = 1
+colorscheme solarized
+
+" ctrlp settings
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" Tabular mappings
+nmap <Leader>a= :Tab /=/l1l1<CR>
+vmap <Leader>a= :Tab /=/l1l1<CR>
+nmap <Leader>a: :Tab /:\zs/l0l1<CR>
+vmap <Leader>a: :Tab /:\zs/l0l1<CR>
+nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
+vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 
 " vim-test settings
 let test#strategy = "dispatch"
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 
+" vimrubocop settings
+let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+
 " prettier settings
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js PrettierAsync
-
-" Show hidden files in Ctrl-P
-let g:ctrlp_show_hidden = 1
-
-" Ignore files in .gitignore
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-" vim-airline settings
-let g:airline_detect_spell=0
-let g:airline_inactive_collapse=1
-
-" vim-airline-theme settings
-let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
 
 " nerdcommenter settings
 let g:NERDSpaceDelims = 1
@@ -54,11 +64,16 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeShowHidden=1
 
-" vimrubocop settings
-let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+" vim-airline settings
+let g:airline_detect_spell=0
+let g:airline_inactive_collapse=1
 
-" let colorscheme set color for indentLine
-let g:indentLine_setColors = 0
+" vim-airline-theme settings
+let g:airline_powerline_fonts = 1
+let g:airline_theme='solarized'
+
+" indentLine settigns
+let g:indentLine_setColors = 0 " let colorscheme set color for indentLine
 
 " Spell check
 set spell spelllang=en_us
@@ -95,13 +110,6 @@ syntax enable
 set background=dark
 set t_Co=256
 
-" solarized options
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
-colorscheme solarized
-
 set number
 set relativenumber
 set cursorline
@@ -115,16 +123,6 @@ set showmatch
 
 vmap <space>y "+y
 map <space>p "+p
-
-let mapleader=','
-
-" Tabularize mappings
-nmap <Leader>a= :Tab /=/l1l1<CR>
-vmap <Leader>a= :Tab /=/l1l1<CR>
-nmap <Leader>a: :Tab /:\zs/l0l1<CR>
-vmap <Leader>a: :Tab /:\zs/l0l1<CR>
-nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
-vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
