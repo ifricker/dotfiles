@@ -1,3 +1,4 @@
+# https://github.com/robbyrussell/oh-my-zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -134,12 +135,17 @@ function db_restore() {
 
 # run spec 50 times, break if fail
 function rspec_50() {
-    if [ -n "$1" ]
-    then
-      for i in `seq 50` ; do rspec "$1"; [[ ! $? = 0 ]] && break ; done
-    else
-      echo Please input spec
-    fi
+  if [ -n "$1" ]
+  then
+    for i in `seq 50` ; do rspec "$1"; [[ ! $? = 0 ]] && break ; done
+  else
+    echo Please input spec
+  fi
+}
+
+# how [language] [keyword]
+function how() {
+    curl cht.sh/"$1"/"$2"
 }
 
 # Set token for for gem update script
