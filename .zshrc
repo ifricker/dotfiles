@@ -1,3 +1,4 @@
+# https://github.com/robbyrussell/oh-my-zsh
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -114,7 +115,12 @@ alias ssh_pi='sshpass -p raspberry ssh pi@192.168.1.82'
 
 # dumps current db and saves with current datetime as filename
 function db_dump() {
-  local db_filename=`date +"%Y-%m-%d_%H:%M:%S"`
+  if [ -n "$1" ]
+  then
+    local db_filename="$1"
+  else
+    local db_filename=`date +"%Y-%m-%d_%H:%M:%S"`
+  fi
   pg_dump -Fc currica_development > ~/dumps/${db_filename}.dump
   echo DB Dump created - ~/dumps/${db_filename}.dump
 }
@@ -134,12 +140,17 @@ function db_restore() {
 
 # run spec 50 times, break if fail
 function rspec_50() {
-    if [ -n "$1" ]
-    then
-      for i in `seq 50` ; do rspec "$1"; [[ ! $? = 0 ]] && break ; done
-    else
-      echo Please input spec
-    fi
+  if [ -n "$1" ]
+  then
+    for i in `seq 50` ; do rspec "$1"; [[ ! $? = 0 ]] && break ; done
+  else
+    echo Please input spec
+  fi
+}
+
+# how [language] [keyword]
+function how() {
+    curl cht.sh/"$1"/"$2"
 }
 
 # Set token for for gem update script
