@@ -115,7 +115,12 @@ alias ssh_pi='sshpass -p raspberry ssh pi@192.168.1.82'
 
 # dumps current db and saves with current datetime as filename
 function db_dump() {
-  local db_filename=`date +"%Y-%m-%d_%H:%M:%S"`
+  if [ -n "$1" ]
+  then
+    local db_filename="$1"
+  else
+    local db_filename=`date +"%Y-%m-%d_%H:%M:%S"`
+  fi
   pg_dump -Fc currica_development > ~/dumps/${db_filename}.dump
   echo DB Dump created - ~/dumps/${db_filename}.dump
 }
