@@ -112,6 +112,26 @@ alias webpacker_dev_server='./bin/webpack-dev-server'
 alias rspec_changed='rspec $(git ls-files --modified --others --exclude="*.swp" --exclude="*.DS_Store" spec)'
 alias ssh_pi='sshpass -p raspberry ssh pi@192.168.1.82'
 
+# dumps current db and saves with current datetime as filename
+function db_dump() {
+  local db_filename=`date +"%Y-%m-%d_%H:%M:%S"`
+  pg_dump -Fc currica_development > ~/dumps/${db_filename}.dump
+  echo DB Dump created - ~/dumps/${db_filename}.dump
+}
+
+# restore db from dump
+# db_restore 2019-11-20_14:06:31
+function db_restore() {
+  if [ -f ~/dumps/"$1".dump ]
+  then
+    rake db:drop && rake db:create;
+    pg_restore -d currica_development --verbose --clean --no-acl --no-owner ~/dumps/"$1".dump;
+    rake db:migrate
+  else
+    echo Please input valid dump filename
+  fi
+}
+
 # run spec 50 times, break if fail
 function rspec_50() {
     if [ -n "$1" ]
