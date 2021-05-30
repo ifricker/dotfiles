@@ -11,7 +11,8 @@ export ZSH=/Users/ianfricker/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -63,10 +64,13 @@ COMPLETION_WAITING_DOTS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git alias-tips
+  alias-tips
+  git
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
+
 
 # User configuration
 
@@ -99,10 +103,11 @@ export EDITOR='vim'
 alias be='bundle exec'
 alias restart_server='pg_ctl -D /usr/local/var/postgresql@9.6 -l /usr/local/var/postgresql@9.6/server.log start'
 alias gs='git status'
+alias co='checkout'
 alias gl='git log --oneline -10'
 alias open_db='psql -d currica_development'
 alias open_db_test='psql -d currica_test'
-alias web='cd ~/Code/Work/currica/web/'
+alias web='cd ~/Code/q-centrix/web/'
 alias redis_start='redis-server /usr/local/etc/redis.conf'
 alias ngrok='./ngrok http 3000'
 alias kill_server='kill -9 $(lsof -i tcp:3000 -t)'
@@ -158,5 +163,11 @@ export GITHUB_TOKEN=NOT_CURRENT_TOKEN
 export CIRCLE_TOKEN=NOT_CURRENT_TOKEN
 
 DEFAULT_USER='ianfricker'
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
