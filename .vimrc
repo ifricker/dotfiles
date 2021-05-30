@@ -4,13 +4,17 @@ call plug#begin('~/.vim/plugged')
   Plug 'ajh17/VimCompletesMe'
   Plug 'altercation/vim-colors-solarized'
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'dart-lang/dart-vim-plugin'
   Plug 'godlygeek/tabular'
   Plug 'janko/vim-test'
+  Plug 'natebosch/vim-lsc'
+  Plug 'natebosch/vim-lsc-dart'
   Plug 'ngmy/vim-rubocop'
   Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
   Plug 'scrooloose/nerdcommenter'
   Plug 'scrooloose/nerdtree'
   Plug 'sheerun/vim-polyglot'
+  Plug 'stevearc/vim-arduino'
   Plug 'tpope/vim-dispatch'
   Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
@@ -22,6 +26,11 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 let mapleader=','
+
+" vim-lsc-dart options
+let g:lsc_auto_map = v:true
+let g:dart_style_guide = 2
+let g:dart_format_on_save = 1
 
 " solarized options
 let g:solarized_visibility = "high"
@@ -48,7 +57,7 @@ nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 
 " vimrubocop settings
-let g:vimrubocop_config = "~/Code/Work/currica/hound/config/style_guides/ruby.yml"
+let g:vimrubocop_config = "~/Code/q-centrix/hound/config/style_guides/ruby.yml"
 
 " prettier settings
 let g:prettier#autoformat = 0
