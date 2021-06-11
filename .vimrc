@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'altercation/vim-colors-solarized'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'dart-lang/dart-vim-plugin'
+  Plug 'frazrepo/vim-rainbow'
   Plug 'godlygeek/tabular'
   Plug 'janko/vim-test'
   Plug 'natebosch/vim-lsc'
@@ -42,6 +43,9 @@ colorscheme solarized
 " ctrlp settings
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" vim-rainbow
+let g:rainbow_active = 1
 
 " Tabular mappings
 nmap <Leader>a= :Tab /=/l1l1<CR>
