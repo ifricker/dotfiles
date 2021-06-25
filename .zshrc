@@ -117,6 +117,7 @@ alias clean_up_branches='git branch -d $(git branch --merged=master | grep -v ma
 alias webpacker_dev_server='./bin/webpack-dev-server'
 alias rspec_changed='rspec $(git ls-files --modified --others --exclude="*.swp" --exclude="*.DS_Store" spec)'
 alias ssh_pi='sshpass -p raspberry ssh pi@192.168.1.82'
+alias generate_password="openssl rand -base64 40 | sed -e 's/[\+=\/]//g'"
 
 # dumps current db and saves with current datetime as filename
 function db_dump() {
