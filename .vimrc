@@ -3,49 +3,31 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'ajh17/VimCompletesMe'
   Plug 'altercation/vim-colors-solarized'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'dart-lang/dart-vim-plugin'
+  Plug 'dense-analysis/ale'
   Plug 'frazrepo/vim-rainbow'
   Plug 'godlygeek/tabular'
-  Plug 'janko/vim-test'
-  Plug 'natebosch/vim-lsc'
-  Plug 'natebosch/vim-lsc-dart'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
   Plug 'ngmy/vim-rubocop'
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'branch': 'release/1.x', 'for': ['javascript'] }
+  " Plug 'prettier/vim-prettier', { 'do': 'yarn install', 'for': ['javascript'] }
   Plug 'scrooloose/nerdcommenter'
-  Plug 'scrooloose/nerdtree'
   Plug 'sheerun/vim-polyglot'
-  Plug 'stevearc/vim-arduino'
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-endwise'
   Plug 'tpope/vim-rails'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'vim-test/vim-test'
+  Plug 'vim-ruby/vim-ruby'
   Plug 'Yggdroot/indentLine'
+  " nvim only
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 call plug#end()
 
 let mapleader=','
 
-" vim-lsc-dart options
-let g:lsc_auto_map = v:true
-let g:dart_style_guide = 2
-let g:dart_format_on_save = 1
-
-" solarized options
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
-colorscheme solarized
-
-" ctrlp settings
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
 " vim-rainbow
-let g:rainbow_active = 1
+" let g:rainbow_active = 1 " globally active, call :RainbowToggle
 
 " Tabular mappings
 nmap <Leader>a= :Tab /=/l1l1<CR>
@@ -54,28 +36,45 @@ nmap <Leader>a: :Tab /:\zs/l0l1<CR>
 vmap <Leader>a: :Tab /:\zs/l0l1<CR>
 nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
 vmap <Leader>a{ :Tab /)\s*\zs{/<CR>
+nmap <Leader><Ctrl-[> :Tab /)\s*\zs{/<CR>
+vmap <Leader><Ctrl-[> :Tab /)\s*\zs{/<CR>
 
 " vim-test settings
-let test#strategy = "dispatch"
+" let test#strategy = "dispatch"
+let g:test#ruby#use_spring_binstub = 0
+let g:test#preserve_screen = 1
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 
 " vimrubocop settings
-let g:vimrubocop_config = "~/Code/q-centrix/hound/config/style_guides/ruby.yml"
+let g:vimrubocop_config = "./.rubocop.yml"
+let g:vimrubocop_keymap = 0
+nmap <Leader>r :RuboCop<CR>
+
+" ale settings
+let g:ale_linters = { 'ruby': ['ruby', 'rubocop'] }
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
+" Run linters only when I save files
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" if you don't want linters to run on opening a file
+" let g:ale_lint_on_enter = 0
+" Disable ALE auto highlights
+let g:ale_set_highlights = 0
+let g:airline#extensions#ale#enabled = 1
+
+let g:ruby_rubocop_options = "--config ./.rubocop.yml --force-exclusion"
 
 " prettier settings
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js PrettierAsync
+" Removes comments, cannot figure out
+" let g:prettier#config#print_width = 120
+" let g:prettier#exec_cmd_path = "~/.vim/plugged/vim-prettier/node_modules/.bin/prettier"
+" autocmd BufWritePre *.js PrettierAsync
 
 " nerdcommenter settings
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
-
-" nerdtree settings
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeShowHidden=1
 
 " vim-airline settings
 let g:airline_detect_spell=0
@@ -88,10 +87,10 @@ let g:airline_theme='solarized'
 " indentLine settigns
 let g:indentLine_setColors = 0 " let colorscheme set color for indentLine
 
-" Spell check
-set spell spelllang=en_us
-hi clear SpellBad
-hi SpellBad cterm=underline
+" fzf settings
+let g:fzf_preview_window = ['up:60%', 'ctrl-/']
+" let g:fzf_options = ['--layout=reverse']
+map <C-f> <Esc><Esc>:Files!<CR>
 
 " built-in matchit macro, % for matching do/end & def/end
 runtime macros/matchit.vim
@@ -113,8 +112,8 @@ set expandtab
 "Allows backspacing over everything
 set backspace=indent,eol,start
 
-"Sets column line at 80
-set colorcolumn=80
+"Sets column line at 120, previously 80
+set colorcolumn=120
 
 " Always display the status line
 set laststatus=2
@@ -133,6 +132,18 @@ set autoindent
 set smartindent
 set hidden
 set showmatch
+
+" solarized options
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
+let g:solarized_termtrans = 1
+colorscheme solarized
+
+" Spell check
+set spell spelllang=en_us
+hi clear SpellBad
+hi SpellBad term=undercurl cterm=underline gui=undercurl guisp=Red
 
 vmap <space>y "+y
 map <space>p "+p
