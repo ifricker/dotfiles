@@ -221,5 +221,4 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export GEMHOME="/Users/ianfricker/.gem/ruby/2.6.0"
-export CYPRESS_PT_PASSWORD='rpjNnFnP<L%^z(xC'
 # shopt -s extglob # Required to enable the `+(...)` extended pattern
