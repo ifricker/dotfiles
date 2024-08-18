@@ -3,8 +3,6 @@ let &packpath = &runtimepath
 
 " List all plugins :PlugInstall
 call plug#begin('~/.vim/plugged')
-  Plug 'ajh17/VimCompletesMe' " Autocomplete
-  Plug 'altercation/vim-colors-solarized' " Solarized colorscheme
   Plug 'dense-analysis/ale' " Asynchronous Lint Engine
   Plug 'godlygeek/tabular' " Align text
   Plug 'ngmy/vim-rubocop' " Rubocop
@@ -32,6 +30,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-tree/nvim-web-devicons' " Icons
   Plug 'nvim-lua/plenary.nvim' " Plenary
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " Telescope
+  Plug 'folke/tokyonight.nvim'
 call plug#end()
 
 let mapleader=','
@@ -43,8 +42,8 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Tabular mappings
-nmap <Leader>a= :Tab /=/l1l1<CR>
-vmap <Leader>a= :Tab /=/l1l1<CR>
+nmap <Leader>a= :Tab /=>/l1l1<CR>
+vmap <Leader>a= :Tab /=>/l1l1<CR>
 nmap <Leader>a: :Tab /:\zs/l0l1<CR>
 vmap <Leader>a: :Tab /:\zs/l0l1<CR>
 nmap <Leader>a{ :Tab /)\s*\zs{/<CR>
@@ -118,12 +117,9 @@ set smartindent " Insert indents automatically
 set hidden " Allow buffers to be hidden
 set showmatch " Show matching brackets when text indicator is over them
 
-" solarized options
-let g:solarized_visibility = "high" " high, low, normal
-let g:solarized_contrast = "high" " high, low, normal
-let g:solarized_termcolors=256 " 16, 256
-let g:solarized_termtrans = 1 " 1, 0
-colorscheme solarized " solarized
+" tokyonight settings
+colorscheme tokyonight-night
+highlight ColorColumn ctermbg=256 guibg=blue
 
 " Spell check
 set spell spelllang=en_us " Enable spell check
