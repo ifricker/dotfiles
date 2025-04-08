@@ -157,6 +157,10 @@ alias docker_cleanup='docker system prune -af --volumes'
 alias start_ngrok='ngrok http 80'
 alias echo_server='http-echo-server 80'
 
+# Wing Tip - Git Commits
+alias wt='docker run -it --rm -e OPENAI_API_KEY=${OPENAI_API_KEY} -v "$(git rev-parse --show-toplevel):/work" wing_tip'
+alias wt_build='cd ~/Code/wing_tip && docker build -t wing_tip .'
+
 # review app scripts
 # usage:
 #   set_review_pr
@@ -194,6 +198,8 @@ function apitest_status() {
 
 alias vim="nvim"
 alias oldvim="\vim"
+alias v="nvim"
+alias rspec="bundle exec rspec"
 
 # Load Git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
