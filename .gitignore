@@ -1,0 +1,13 @@
+# Environment variables - never commit these!
+.env
+
+# Backup files
+*.backup.*
+
+# macOS
+.DS_Store
+
+# Vim temporary files
+*.swp
+*.swo
+*~

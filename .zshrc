@@ -158,8 +158,10 @@ alias airspace="airspace_docker"
 alias apitest="airspace_docker rails_c -a pt -e apitest"
 alias no_sleep='caffeinate -disu'
 
-# OpenAI API Key
-export OPENAI_API_KEY="your-api-key-here"
+# Load environment variables from .env file
+if [[ -f "$HOME/.env" ]]; then
+    export $(cat "$HOME/.env" | grep -v '^#' | xargs)
+fi
 
 export GPG_TTY=$(tty)
 export NVM_DIR="$HOME/.nvm"
