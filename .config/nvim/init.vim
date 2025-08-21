@@ -5,6 +5,7 @@ let &packpath = &runtimepath
 call plug#begin('~/.vim/plugged')
   Plug 'dense-analysis/ale' " Asynchronous Lint Engine
   Plug 'godlygeek/tabular' " Align text
+  Plug 'ConradIrwin/vim-bracketed-paste' " Bracketed paste
   Plug 'ngmy/vim-rubocop' " Rubocop
   Plug 'scrooloose/nerdcommenter' " Commenter
   Plug 'sheerun/vim-polyglot' " Syntax highlighting
@@ -23,17 +24,32 @@ call plug#begin('~/.vim/plugged')
   " post install (yarn install | npm install) then load plugin only for editing supported files
   Plug 'prettier/vim-prettier', {
     \ 'do': 'yarn install --frozen-lockfile --production',
-    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html', 'python'] }
+
+  " prettier/vim-prettier
+  let g:prettier#config#config_precedence = "prefer-file"
+  let g:prettier#exec_cmd_path = "~/.config/prettier/"
+  let g:prettier#config#tab_width = 2
+  let g:prettier#config#use_tabs = 0
 
   " nvim only
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Treesitter
   Plug 'nvim-tree/nvim-web-devicons' " Icons
   Plug 'nvim-lua/plenary.nvim' " Plenary
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " Telescope
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' } " Telescope
   Plug 'folke/tokyonight.nvim'
+  Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' } " Completion
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'norcalli/nvim-colorizer.lua' " Colorizer
 call plug#end()
 
 let mapleader=','
+
+" Early Lua configuration (critical functionality)
+lua require'lspconfig'.pyright.setup{}
+
+" Copilot
+let g:copilot_node_command = "~/.nvm/versions/node/v22.14.0/bin/node"
 
 " Telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
@@ -106,6 +122,7 @@ set laststatus=2 " Always display the status line
 syntax enable " Enable syntax highlighting
 set background=dark " Use dark background
 set t_Co=256 " Use 256 colors
+set termguicolors " Enable true color support
 set number " Show line numbers
 set relativenumber " Show relative line numbers
 set cursorline " Highlight the current line
@@ -116,10 +133,14 @@ set autoindent " Copy indent from current line when starting a new line
 set smartindent " Insert indents automatically
 set hidden " Allow buffers to be hidden
 set showmatch " Show matching brackets when text indicator is over them
+" set paste " Paste mode
 
 " tokyonight settings
 colorscheme tokyonight-night
 highlight ColorColumn ctermbg=256 guibg=blue
+
+" Late Lua configuration (visual enhancements)
+lua require'colorizer'.setup()
 
 " Spell check
 set spell spelllang=en_us " Enable spell check
@@ -128,6 +149,12 @@ hi SpellBad term=undercurl cterm=underline gui=undercurl guisp=red
 
 vmap <space>y "+y
 map <space>p "+p
+
+" PASTE CONFIGURATION:
+" The vim-bracketed-paste plugin handles paste indentation automatically.
+" REQUIRED: Enable "Terminal may enable paste bracketing" in iTerm2:
+" iTerm2 → Preferences → Profiles → Terminal → Check "Terminal may enable paste bracketing"
+" This prevents cascading indentation when pasting multi-line code.
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.

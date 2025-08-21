@@ -1,14 +1,21 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/ianfricker/.oh-my-zsh"
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -23,14 +30,13 @@ ZSH_THEME="robbyrussell"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -45,9 +51,10 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
-COMPLETION_WAITING_DOTS="true"
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -81,76 +88,58 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
-export EDITOR='vim'
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+#### AIRSPACE ####
+# Make sure the Homebrew binary directory is included first
+export PATH="/opt/homebrew/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# rbenv setup
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+# Other environment setup for brew, nodenv, nvm, etc.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(nodenv init -)"
 
-  autoload -Uz compinit
-  compinit
-fi
+# Google Cloud SDK setup
+if [ -f '/Users/ian/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ian/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/ian/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ian/google-cloud-sdk/completion.zsh.inc'; fi
 
-# [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
 
-# [[ -s ~/.zshrc ]] && source ~/.zshrc
+#### IAN ###
 
-export PATH="$HOME/.npm-packages/bin:$PATH"
+COMPLETION_WAITING_DOTS="true"
 
-export PATH="/usr/local/opt/postgresql@9.5/bin:$PATH"
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+export PGGSSENCMODE="disable"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export EDITOR='nvim'
 
 alias gl='git log --pretty=oneline -10'
-alias generate_password="openssl rand -base64 40 | sed -e 's/[\+=\/]//g'"
-
-# Database tools
-alias db_drop='docker exec -i db dropdb firstdelivery -U firstdelivery -h localhost'
-alias db_download='curl http://192.168.1.171/light.dump -o /tmp/light.dump'
-alias db_create='docker exec -i db createdb firstdelivery -U firstdelivery -h localhost'
-alias db_load='docker exec -i db pg_restore -v -d firstdelivery -U firstdelivery -Fc -h localhost < /tmp/light.dump'
-alias refresh_db='db_drop && db_download && db_create && db_load'
-
-alias docker_start_pt='docker compose up -d webhook-db webhook-redis light-pt-db pt-redis'
+alias dc='docker compose'
+alias dcps='docker compose ps'
 alias dcpt='docker compose up -d light-pt-db pt-redis'
 alias parrot_docker='docker compose up -d parrot-db'
 alias bym='bundle && yarn && rails db:migrate && rails db:create RAILS_ENV=test && spring stop'
 alias docker_start_albatross='docker compose up -d webhook-db webhook-redis light-pt-db flight-db pt-redis albatross'
 alias pt='cd ~/Code/PackageTracker'
 alias wp="cd ~/Code/PackageTracker && ./bin/webpacker-dev-server"
-alias gcd='git checkout main'
-
-alias dc='docker compose'
-alias be='bundle exec'
 alias skiq="bundle exec sidekiq"
 alias kill_server='kill -9 $(lsof -i tcp:3001 -t)'
-alias build_api_docs='SWAGGER_DRY_RUN=0 RAILS_ENV=test rails rswag'
-alias apitest='airspace rails_console -e apitest -a pt'
 
 alias docker_cleanup='docker system prune -af --volumes'
 
@@ -161,70 +150,26 @@ alias echo_server='http-echo-server 80'
 alias wt='docker run -it --rm -e OPENAI_API_KEY=${OPENAI_API_KEY} -v "$(git rev-parse --show-toplevel):/work" wing_tip'
 alias wt_build='cd ~/Code/wing_tip && docker build -t wing_tip .'
 
-# review app scripts
-# usage:
-#   set_review_pr
-#   gcp_edit_config
-#   gcp_restart_app && gcp_pod_status
-
-function set_review_pr() {
-  export APP_NUM=$1
-}
-
-function gcp_edit_config() {
-  kubectl -n pt-pr-$APP_NUM edit cm pt-config
-}
-
-function gcp_restart_app() {
-  kubectl -n pt-pr-$APP_NUM rollout restart deployment
-}
-
-
-function gcp_pod_status() {
-  kubectl -n pt-pr-$APP_NUM rollout status deployment
-}
-
-# edit_apittest_env
-# restart_apitest && apitest_status
-function edit_apitest_env() {
-  kubectl edit cm pt-apitest-config -n apitest-apps
-}
-function restart_apitest() {
-  kubectl rollout restart deployment/pt -n apitest-apps
-}
-function apitest_status() {
-  kubectl rollout status deployment/pt -n apitest-apps
-}
-
 alias vim="nvim"
 alias oldvim="\vim"
 alias v="nvim"
 alias rspec="bundle exec rspec"
+alias airspace="airspace_docker"
+alias apitest="airspace_docker rails_c -a pt -e apitest"
+alias no_sleep='caffeinate -disu'
 
-# Load Git completion
-zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-fpath=(~/.zsh $fpath)
+# OpenAI API Key
+export OPENAI_API_KEY="your-api-key-here"
 
-autoload -Uz compinit && compinit
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/usr/local/sbin:$PATH"
-
-export CIRCLE_CI_TOKEN=fbcd7d868d7a4c3ff0d8fb05f6d6f2aba3b2b379
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export GPG_TTY=$(tty)
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
-export GOPRIVATE=github.com/airspacetechnologies/*
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/ianfricker/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ianfricker/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/ianfricker/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ianfricker/google-cloud-sdk/completion.zsh.inc'; fi
-
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export GEMHOME="/Users/ianfricker/.gem/ruby/2.6.0"
-# shopt -s extglob # Required to enable the `+(...)` extended pattern
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/ian/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
